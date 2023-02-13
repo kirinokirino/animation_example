@@ -54,7 +54,7 @@ impl Game {
     pub fn input(&mut self, viewport_size: UVec2, _mouse: &Mouse, keyboard: &Keyboard) {
         self.viewport_size = viewport_size;
         if let Some(robot) = &mut self.robot {
-            if keyboard.pressed.contains(&VirtualKeyCode::Space) {
+            if keyboard.just_pressed.contains(&VirtualKeyCode::Space) {
                 robot.dbg_next_state(self.counter);
                 self.counter += 1;
             }

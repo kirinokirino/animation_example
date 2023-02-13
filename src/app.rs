@@ -64,6 +64,7 @@ impl App {
 
     pub fn update(&mut self) {
         self.game.update(self.current_frame);
+        self.keyboard.clear();
     }
 
     pub fn draw(&self, graphics: &mut Graphics2D) {
@@ -183,6 +184,8 @@ pub struct Keyboard {
     pub buffer: Vec<char>,
     pub modifiers: ModifiersState,
     pub pressed: Vec<VirtualKeyCode>,
+    pub just_pressed: Vec<VirtualKeyCode>,
+    pub just_released: Vec<VirtualKeyCode>,
 }
 
 impl Keyboard {
@@ -191,7 +194,14 @@ impl Keyboard {
             buffer: Vec::new(),
             modifiers: ModifiersState::default(),
             pressed: Vec::new(),
+            just_pressed: Vec::new(),
+            just_released: Vec::new(),
         }
+    }
+
+    pub fn clear(&mut self) {
+        self.just_pressed.clear();
+        self.just_released.clear();
     }
 
     pub fn press(&mut self, button: VirtualKeyCode) {
@@ -199,6 +209,7 @@ impl Keyboard {
             println!("Pressed {button:?} without releasing it first!");
         } else {
             self.pressed.push(button);
+            self.just_pressed.push(button);
         }
     }
 
@@ -206,6 +217,7 @@ impl Keyboard {
         if self.pressed.contains(&button) {
             if let Some(idx) = self.pressed.iter().position(|b| b == &button) {
                 self.pressed.remove(idx);
+                self.just_released.push(button);
             }
         } else {
             println!("Released {button:?} without it being pressed!");
