@@ -12,10 +12,10 @@ impl Spritesheet {
     pub fn new(image_handle: ImageHandle, width: u32, height: u32) -> Self {
         let image_size = image_handle.size();
         let (sprite_width, sprite_height) = (image_size.x / width, image_size.y / height);
-        if (sprite_width * width != image_size.x) {
+        if sprite_width * width != image_size.x {
             todo!("Image size division ");
         }
-        if (sprite_height * height != image_size.y) {
+        if sprite_height * height != image_size.y {
             todo!("Image size division ");
         }
         Self {

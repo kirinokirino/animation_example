@@ -9,7 +9,7 @@ struct Animation {
 }
 
 impl Animation {
-    fn new(current_frame: usize, length: usize) -> Self {
+    const fn new(current_frame: usize, length: usize) -> Self {
         Self {
             current_frame,
             length,
@@ -30,8 +30,8 @@ enum Drawable {
 impl Drawable {
     pub fn next(&mut self) {
         match self {
-            Drawable::Animation(animation) => animation.next(),
-            Drawable::Sprite => (),
+            Self::Animation(animation) => animation.next(),
+            Self::Sprite => (),
         }
     }
 }
@@ -44,7 +44,7 @@ pub struct Robot {
 }
 
 impl Robot {
-    pub fn new(spritesheet: Spritesheet) -> Self {
+    pub const fn new(spritesheet: Spritesheet) -> Self {
         Self {
             spritesheet,
             state: RobotState::Idle,
@@ -80,12 +80,12 @@ impl Robot {
 
     fn set_drawable(&mut self) {
         let state_name: &str = self.state.into();
-        if let Some((animation, animation_frames)) = ROBOT_ANIMATIONS
+        if let Some((_animation, animation_frames)) = ROBOT_ANIMATIONS
             .iter()
             .find(|(animation, _)| *animation == state_name)
         {
             self.drawable = Some(Drawable::Animation(Animation::new(0, *animation_frames)));
-        } else if let Some((sprite, [x, y])) = ROBOT_SPRITES
+        } else if let Some((_sprite, [_x, _y])) = ROBOT_SPRITES
             .iter()
             .find(|(sprite, _)| *sprite == state_name)
         {
@@ -95,10 +95,7 @@ impl Robot {
 
     pub fn advance_animation(&mut self) {
         if let Some(drawable) = &mut self.drawable {
-            match drawable {
-                Drawable::Animation(animation) => animation.next(),
-                Drawable::Sprite => (),
-            }
+            drawable.next();
         }
     }
 
@@ -106,14 +103,14 @@ impl Robot {
         if let Some(drawable) = &self.drawable {
             let name = self.state.into();
             match drawable {
-                Drawable::Animation(animation) => {
+                Drawable::Animation(_animation) => {
                     self.draw_animation(dest, graphics, name);
                 }
                 Drawable::Sprite => {
                     if let Some((sprite, [x, y])) =
                         ROBOT_SPRITES.iter().find(|(sprite, _)| *sprite == name)
                     {
-                        self.draw_sprite(dest, graphics, *sprite, *x, *y);
+                        self.draw_sprite(dest, graphics, sprite, *x, *y);
                     }
                 }
             }
@@ -129,7 +126,7 @@ impl Robot {
                         .iter()
                         .find(|(sprite, _)| *sprite == sprite_name)
                     {
-                        self.draw_sprite(dest, graphics, *sprite, *x, *y);
+                        self.draw_sprite(dest, graphics, sprite, *x, *y);
                     }
                 }
                 Drawable::Sprite => unreachable!(),
@@ -137,7 +134,14 @@ impl Robot {
         }
     }
 
-    fn draw_sprite(&self, dest: &Rectangle, graphics: &mut Graphics2D, sprite: &str, x: u8, y: u8) {
+    fn draw_sprite(
+        &self,
+        dest: &Rectangle,
+        graphics: &mut Graphics2D,
+        _sprite: &str,
+        x: u8,
+        y: u8,
+    ) {
         self.spritesheet
             .draw_sprite(dest, x.into(), y.into(), graphics);
     }
