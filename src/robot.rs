@@ -1,4 +1,4 @@
-use speedy2d::{shape::Rectangle, Graphics2D};
+use speedy2d::{Rect, Graphics2D};
 use strum_macros::IntoStaticStr;
 
 use crate::spritesheet::Spritesheet;
@@ -99,7 +99,7 @@ impl Robot {
         }
     }
 
-    pub fn draw(&self, dest: &Rectangle, graphics: &mut Graphics2D) {
+    pub fn draw(&self, dest: &Rect, graphics: &mut Graphics2D) {
         if let Some(drawable) = &self.drawable {
             let name = self.state.into();
             match drawable {
@@ -117,7 +117,7 @@ impl Robot {
         }
     }
 
-    fn draw_animation(&self, dest: &Rectangle, graphics: &mut Graphics2D, animation_name: &str) {
+    fn draw_animation(&self, dest: &Rect, graphics: &mut Graphics2D, animation_name: &str) {
         if let Some(drawable) = &self.drawable {
             match drawable {
                 Drawable::Animation(animation) => {
@@ -134,14 +134,7 @@ impl Robot {
         }
     }
 
-    fn draw_sprite(
-        &self,
-        dest: &Rectangle,
-        graphics: &mut Graphics2D,
-        _sprite: &str,
-        x: u8,
-        y: u8,
-    ) {
+    fn draw_sprite(&self, dest: &Rect, graphics: &mut Graphics2D, _sprite: &str, x: u8, y: u8) {
         self.spritesheet
             .draw_sprite(dest, x.into(), y.into(), graphics);
     }

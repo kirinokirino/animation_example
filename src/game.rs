@@ -1,11 +1,9 @@
-use speedy2d::dimen::UVec2;
-use speedy2d::shape::Rectangle;
+use speedy2d::image::{ImageFileFormat, ImageHandle, ImageSmoothingMode};
+use speedy2d::Rect;
 use speedy2d::window::VirtualKeyCode;
 use speedy2d::Graphics2D;
-use speedy2d::{
-    dimen::Vec2,
-    image::{ImageFileFormat, ImageHandle, ImageSmoothingMode},
-};
+
+use glam::{Vec2, UVec2};
 
 use crate::app::{Keyboard, Mouse};
 use crate::config::Config;
@@ -70,7 +68,7 @@ impl Game {
     pub fn draw(&self, graphics: &mut Graphics2D) {
         if let Some(robot) = &self.robot {
             robot.draw(
-                &Rectangle::new(Vec2::new(0.0, 0.0), Vec2::new(150.0, 200.0)),
+                &Rect::new(Vec2::new(0.0, 0.0), Vec2::new(150.0, 200.0)),
                 graphics,
             );
         }

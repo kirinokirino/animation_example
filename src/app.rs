@@ -1,12 +1,13 @@
 use speedy2d::{
     color::Color,
-    dimen::{UVec2, Vec2},
     window::{
         KeyScancode, ModifiersState, MouseButton, MouseScrollDistance, VirtualKeyCode,
         WindowHandler, WindowHelper, WindowStartupInfo,
     },
     Graphics2D,
 };
+
+use glam::{UVec2, Vec2};
 
 use crate::game::Game;
 

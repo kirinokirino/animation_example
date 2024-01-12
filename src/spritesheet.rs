@@ -1,4 +1,6 @@
-use speedy2d::{color::Color, dimen::Vec2, image::ImageHandle, shape::Rectangle, Graphics2D};
+use speedy2d::{color::Color, image::ImageHandle, Rect, Graphics2D};
+
+use glam::Vec2;
 
 //sprite.draw(destination, graphics)
 
@@ -27,7 +29,7 @@ impl Spritesheet {
 
     pub fn draw_sprite(
         &self,
-        dest: &Rectangle,
+        dest: &Rect,
         sprite_x: u32,
         sprite_y: u32,
         graphics: &mut Graphics2D,
@@ -45,7 +47,7 @@ impl Spritesheet {
 }
 
 pub fn draw_sprite(
-    destination: &Rectangle,
+    destination: &Rect,
     spritesheet: &ImageHandle,
     sprite_x: u32,
     sprite_y: u32,
@@ -54,9 +56,9 @@ pub fn draw_sprite(
     graphics: &mut Graphics2D,
 ) {
     let vertex_positions_clockwise = [
-        *destination.top_left(),
+        destination.top_left,
         destination.top_right(),
-        *destination.bottom_right(),
+        destination.bottom_right,
         destination.bottom_left(),
     ];
     let image_coords_normalized = [

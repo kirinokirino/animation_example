@@ -3,10 +3,11 @@
 #![windows_subsystem = "windows"]
 
 use speedy2d::{
-    dimen::UVec2,
     window::{WindowCreationOptions, WindowPosition, WindowSize},
     Window,
 };
+
+use glam::u32::UVec2;
 
 mod app;
 use app::App;

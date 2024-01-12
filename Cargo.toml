@@ -8,8 +8,9 @@ edition = "2021"
 [dependencies]
 configparser = "3.0.2"
 fastrand = "1.8"
+glam = "0.25.0"
 lazy_static = "1.4.0"
-speedy2d = { version = "1.10.0", git = "https://github.com/kirinokirino/Speedy2D", default-features = false, features = ["windowing-x11", "windowing", "image-loading"] }
+speedy2d = { version = "2.1", path = "../Speedy2D", default-features = false, features = ["windowing-wayland", "shapes",  "windowing", "image-loading", "image-png"] }
 strum = { version = "0.24", featuers = ["derive"]}
 strum_macros = "0.24"
 
