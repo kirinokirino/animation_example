@@ -1,4 +1,4 @@
-use speedy2d::{Rect, Graphics2D};
+use speedy2d::{Graphics2D, Rect};
 use strum_macros::IntoStaticStr;
 
 use crate::spritesheet::Spritesheet;

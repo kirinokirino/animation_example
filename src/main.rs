@@ -25,7 +25,7 @@ fn main() {
     let window = Window::new_with_options(
         &config.title,
         WindowCreationOptions::new_windowed(window_pixels, Some(WindowPosition::Center))
-            .with_decorations(true)
+            .with_decorations(false)
             .with_transparent(false),
     )
     .expect("Wasn't able to create a window!");

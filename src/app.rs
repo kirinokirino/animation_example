@@ -227,7 +227,7 @@ impl Keyboard {
 }
 
 pub struct Mouse {
-    position: Vec2,
+    pub position: Vec2,
     grabbed: bool,
     pressed: Vec<MouseButton>,
     scroll_lines: f64,
